@@ -1,5 +1,4 @@
 import ctypes
-import math
 import platform
 import pygame
 import typing
@@ -18,16 +17,6 @@ libstgnative.xbrz_scale.argtypes = (
     ctypes.c_int,
 )
 libstgnative.xbrz_scale.restype = None
-libstgnative.perspective_blit.argtypes = (
-    ctypes.c_void_p,
-    ctypes.c_size_t, ctypes.c_size_t,
-    ctypes.c_void_p,
-    ctypes.c_size_t, ctypes.c_size_t,
-    ctypes.c_float, ctypes.c_float, ctypes.c_float,
-    ctypes.c_float, ctypes.c_float, ctypes.c_float,
-    ctypes.c_bool,
-)
-libstgnative.perspective_blit.restype = None
 
 def xbrzScale(factor: int, src: pygame.Surface, dest: typing.Optional[pygame.Surface] = None) -> pygame.Surface:
     if not 2 <= factor <= 6:
