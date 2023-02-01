@@ -19,7 +19,7 @@ with lib.utils.getResourceHandler('scriptfiles/manual.txt') as f:
 # 关于
 
 源代码以GNU AGPL 3.0许可证发布。
-https://github.com/TransparentLC/project-striker
+https://github.com/TransparentLC/project-striker-black-label
 
 Commit: {lib.constants.BUILD_INFO[0] if lib.constants.BUILD_INFO else None}
 Build time: {lib.constants.BUILD_INFO[1] if lib.constants.BUILD_INFO else None}
