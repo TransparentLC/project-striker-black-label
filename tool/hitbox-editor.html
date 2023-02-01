@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Hitbox Editor</title>
+</head>
+<body style="margin:0 auto;max-width:1280px">
+    <div v-scope>
+        <h1>Hitbox editor</h1>
+        <input type="file" accept="image/*" @change="loadImage">
+        Scale: <input type="number" v-model="scaleFactor" min="1" @change="drawHitbox">
+        <div style="display:flex">
+            <div>
+                X: <input type="number" v-model="hitboxData[hitboxIndex].x" @change="drawHitbox">
+                <br>
+                Y: <input type="number" v-model="hitboxData[hitboxIndex].y" @change="drawHitbox">
+                <br>
+                R: <input type="number" v-model="hitboxData[hitboxIndex].r" min="0" @change="drawHitbox">
+                <br>
+                <button @click="hitboxData.push({x: 0, y: 0, r: 0}); drawHitbox()">Add</button>
+                <button @click="hitboxData.push({...hitboxData[hitboxIndex]}); drawHitbox()">Copy</button>
+                <button @click="hitboxData.splice(hitboxIndex, 1); drawHitbox(); hitboxIndex = Math.max(0, Math.min(hitboxData.length - 1, hitboxIndex - 1));">Delete</button>
+                <br>
+                <button @click="mirror('x')">Mirror X</button>
+                <button @click="mirror('y')">Mirror Y</button>
+                <br>
+                <button @click="importData">Import</button>
+                <button @click="exportData">Export</button>
+                <br>
+                <select style="width:160px" size="10">
+                    <option v-for="(hitbox, index) in hitboxData" @click="hitboxIndex = index">({{ hitbox.x }}, {{ hitbox.y }}) r={{ hitbox.r }}</option>
+                </select>
+                <div>
+                    Pointer X: {{ Math.round(pointerX) }}
+                    <br>
+                    Pointer Y: {{ Math.round(pointerY) }}
+                </div>
+            </div>
+            <div style="position:relative;display:inline-block">
+                <img
+                    :src="imageSrc"
+                    style="image-rendering:crisp-edges;transform-origin:left top"
+                    :style="{transform:`scale(${scaleFactor})`}"
+                >
+                <canvas
+                    id="canvas"
+                    style="position:absolute;left:0;top:0"
+                    width="0"
+                    height="0"
+                    @mousemove="pointerX = $event.layerX / scaleFactor - imageWidth / 2; pointerY = $event.layerY / scaleFactor - imageHeight / 2"
+                    @click="hitboxData[hitboxIndex].x = Math.round(pointerX); hitboxData[hitboxIndex].y = Math.round(pointerY); drawHitbox()"
+                ></canvas>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/petite-vue@0.4/dist/petite-vue.iife.js"></script>
+    <script>
+        (async () => {
+            /** @type {HTMLCanvasElement} */
+            const canvas = document.getElementById('canvas');
+            const canvasCtx = canvas.getContext('2d');
+
+            PetiteVue.createApp({
+                imageSrc: '',
+                imageWidth: null,
+                imageHeight: null,
+                pointerX: null,
+                pointerY: null,
+                hitboxIndex: 0,
+                hitboxData: [],
+                scaleFactor: 4,
+
+                loadImage(e) {
+                    const url = URL.createObjectURL(e.target.files[0]);
+                    const img = new Image;
+                    this.imageSrc = img.src = url;
+                    img.onload = () => {
+                        this.imageWidth = img.width;
+                        this.imageHeight = img.height;
+                        canvas.width = this.imageWidth * this.scaleFactor;
+                        canvas.height = this.imageHeight * this.scaleFactor;
+                        this.drawHitbox();
+                    };
+                },
+                drawHitbox() {
+                    canvas.width = this.imageWidth * this.scaleFactor;
+                    canvas.height = this.imageHeight * this.scaleFactor;
+                    canvasCtx.clearRect(0, 0, canvas.width, canvas.height);
+                    canvasCtx.lineWidth = this.scaleFactor / 2;
+                    canvasCtx.strokeStyle = '#f00';
+                    canvasCtx.fillStyle = 'rgba(255,0,0,.25)';
+                    for (let i = 0; i < this.hitboxData.length; i++) {
+                        let {x, y, r} = this.hitboxData[i];
+                        x *= this.scaleFactor;
+                        y *= this.scaleFactor;
+                        x += this.imageWidth * this.scaleFactor / 2;
+                        y += this.imageHeight * this.scaleFactor / 2;
+
+                        canvasCtx.beginPath();
+                        canvasCtx.arc(x, y, r * this.scaleFactor, 0, 2 * Math.PI);
+                        canvasCtx.closePath();
+                        canvasCtx.stroke();
+                        canvasCtx.fill();
+
+                        canvasCtx.beginPath();
+                        canvasCtx.moveTo(x - this.scaleFactor, y - this.scaleFactor);
+                        canvasCtx.lineTo(x + this.scaleFactor, y + this.scaleFactor);
+                        canvasCtx.moveTo(x - this.scaleFactor, y + this.scaleFactor);
+                        canvasCtx.lineTo(x + this.scaleFactor, y - this.scaleFactor);
+                        canvasCtx.closePath();
+                        canvasCtx.stroke();
+                    }
+                },
+                mirror(axis) {
+                    this.hitboxData.push(...this.hitboxData.filter(e => e[axis]).map(e => {
+                        const t = {...e};
+                        t[axis] *= -1;
+                        return t;
+                    }));
+                    this.drawHitbox();
+                },
+                importData() {
+                    this.hitboxData = Array.from(
+                        prompt().matchAll(/\s*lib\.sprite\.Hitbox\(pygame\.Vector2\((-?\d+(?:\.\d+)?),\s*(-?\d+(?:\.\d+)?)\),\s*(-?\d+(?:\.\d+)?)\),\s*/g)
+                    )
+                        .map(([_, x, y, r]) => ({
+                            x: parseFloat(x),
+                            y: parseFloat(y),
+                            r: parseFloat(r),
+                        }));
+                    this.drawHitbox();
+                },
+                exportData() {
+                    alert(this.hitboxData.map(({x, y, r}) => `lib.sprite.Hitbox(pygame.Vector2(${x}, ${y}), ${r}),`).join('\n'));
+                },
+            }).mount();
+        })()
+    </script>
+</body>
+</html>

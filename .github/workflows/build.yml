@@ -1,0 +1,109 @@
+name: build
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}
+    env:
+      PYTHONIOENCODING: utf-8
+      PYTHONOPTIMIZE: 1
+    defaults:
+      run:
+        shell: bash
+    strategy:
+      matrix:
+        os:
+          - windows-latest
+          - ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+          cache: pip
+          cache-dependency-path: requirements-build.txt
+      - name: Install pip dependencies
+        run: pip install -U -r requirements-build.txt
+      - name: Cache font
+        uses: actions/cache@v3
+        id: cache-font
+        with:
+          path: .font
+          key: ${{ runner.os }}-font
+      - name: Download font
+        if: steps.cache-font.outputs.cache-hit != 'true'
+        run: |
+          mkdir .font
+          curl \
+            https://raw.githubusercontent.com/lxgw/LxgwWenKai/main/fonts/TTF/LXGWWenKai-Regular.ttf \
+            --no-progress-meter \
+            --output .font/LXGWWenKai-Regular.ttf
+      - name: Generate font subset
+        run: python tool/generate-font-subset.py .font/LXGWWenKai-Regular.ttf font/LXGWWenKai-Regular.ttf "**/*.py" "scriptfiles/**/*.txt"
+      - name: Setup UPX
+        run: |
+          if [ "$RUNNER_OS" == "Windows" ]; then
+            choco install upx --no-progress
+          elif [ "$RUNNER_OS" == "Linux" ]; then
+            sudo apt install upx-ucl
+          fi
+      - name: Setup gcc/g++
+        run: |
+          if [ "$RUNNER_OS" == "Windows" ]; then
+            choco install mingw --no-progress
+          elif [ "$RUNNER_OS" == "Linux" ]; then
+            sudo add-apt-repository ppa:ubuntu-toolchain-r/ppa
+            sudo apt install gcc-12 g++-12
+            echo "CC=gcc-12" >> $GITHUB_ENV
+            echo "CXX=g++-12" >> $GITHUB_ENV
+          fi
+      - name: Set vars
+        id: vars
+        run: |
+          if [ "$RUNNER_OS" == "Windows" ]; then
+            ext=".7z"
+          elif [ "$RUNNER_OS" == "Linux" ]; then
+            ext=".tar.xz"
+          fi
+          echo "ext=${ext}" >> $GITHUB_OUTPUT
+          echo "archiveName=striker-black-label-$(date +%Y%m%d-%H%M%S)-$(git rev-parse --short HEAD)-${{ runner.os }}${ext}" >> $GITHUB_OUTPUT
+      - name: Build executable
+        run: |
+          if [ "$RUNNER_OS" == "Windows" ]; then
+            export pyiSeparator=";"
+            export libExtension=".dll"
+            export useStatic=true
+          fi
+          bash build-native.sh
+          if [ "$RUNNER_OS" == "Windows" ]; then
+            upx --ultra-brute libstgnative${libExtension}
+          fi
+
+          bash build.sh
+
+          cd dist
+          if [ "$RUNNER_OS" == "Windows" ]; then
+            7z a \
+              ${{ steps.vars.outputs.archiveName }} \
+              striker-bl \
+              -mx9 -mfb256 -md1g -ms
+          elif [ "$RUNNER_OS" == "Linux" ]; then
+            chmod +x striker-bl/striker-bl
+            XZ_OPT=-e9 tar Jcvf \
+              ${{ steps.vars.outputs.archiveName }} \
+              striker-bl
+          fi
+          cd ..
+      - name: Get SHA-256 checksum of built executable
+        run: openssl sha256 dist/${{ steps.vars.outputs.archiveName }}
+      - name: Upload result
+        uses: actions/upload-artifact@v3
+        with:
+          name: striker-bl-${{ runner.os }}
+          path: dist/${{ steps.vars.outputs.archiveName }}
