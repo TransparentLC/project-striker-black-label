@@ -46,30 +46,3 @@ def xbrzScale(factor: int, src: pygame.Surface, dest: typing.Optional[pygame.Sur
     bp.write(destBuf)
     del bp
     return dest
-
-def perspectiveBlit(
-    src: pygame.Surface, dest: pygame.Surface,
-    horizon: float, fov: float, scaling: float,
-    offset: pygame.Vector2, rotate: float = 0,
-    repeat: bool = False
-):
-    if src.get_parent() is not None:
-        src = src.copy()
-    sw, sh = src.get_size()
-    dw, dh = dest.get_size()
-    bp = src.get_buffer()
-    srcBuf = (ctypes.c_uint8 * (sw * sh * 4)).from_buffer_copy(bp.raw)
-    del bp
-    destBuf = (ctypes.c_uint8 * (dw * dh * 4))()
-    libstgnative.perspective_blit(
-        srcBuf,
-        sw, sh,
-        destBuf,
-        dw, dh,
-        horizon, fov, scaling,
-        offset.x, offset.y, rotate / 180 * math.pi,
-        repeat,
-    )
-    bp = dest.get_buffer()
-    bp.write(destBuf)
-    del bp
