@@ -89,6 +89,8 @@ jobs:
 
           cd dist
           if [ "$RUNNER_OS" == "Windows" ]; then
+            rm striker-bl/api-ms-win-*.dll
+            rm striker-bl/ucrtbase.dll
             7z a \
               ${{ steps.vars.outputs.archiveName }} \
               striker-bl \
