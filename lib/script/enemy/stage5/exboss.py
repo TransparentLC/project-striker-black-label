@@ -1254,7 +1254,7 @@ def phase9(ctx: lib.sprite.enemy.Enemy):
 
     yield common.charge(ctx.position)
     while True:
-        if lib.globals.timeCountdown == 1200 and ctx.hitpoint > 109999:
+        if lib.globals.timeCountdown < 1200 and ctx.hitpoint > 109999:
             ctx.hitpoint = 109999
         SFX.ENEMY_SHOOT_C.play()
         common.shootAimingMultiWay(

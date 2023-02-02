@@ -569,7 +569,7 @@ def phase3(ctx: lib.sprite.enemy.Enemy):
     b = common.randomInt(0, 360)
     c = common.randomInt(0, 360)
     while True:
-        if lib.globals.timeCountdown == 1200 and ctx.hitpoint > 109999:
+        if lib.globals.timeCountdown < 1200 and ctx.hitpoint > 109999:
             ctx.hitpoint = 109999
         if ctx.hitpoint <= 109999 and 109999 < m:
             ctx.textures = common.EnemyTextures.BOSS_E_BREAK
