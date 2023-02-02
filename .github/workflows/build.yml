@@ -88,6 +88,7 @@ jobs:
           bash build.sh
 
           cd dist
+          cp ../README.md striker-bl/README.md
           if [ "$RUNNER_OS" == "Windows" ]; then
             rm striker-bl/api-ms-win-*.dll
             rm striker-bl/ucrtbase.dll
