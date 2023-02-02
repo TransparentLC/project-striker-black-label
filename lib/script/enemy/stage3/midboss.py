@@ -111,7 +111,7 @@ def phase0(ctx: lib.sprite.enemy.Enemy):
     common.setBossRemain(0)
     common.setBossHPRange(ctx, 10000, 134967)
     ctx.hitpoint = 134967
-    ctx.invincibleRemain = 90
+    ctx.invincibleRemain = 90 + lib.globals.groupPlayer.sprite.hyperRemain
     common.setCountdown(60 * 60 + 90, 60 * 60)
     common.moveRandom(ctx, 192, 96, 120, 32, 90, lib.utils.easeOutCubicInterpolation)
     yield 90

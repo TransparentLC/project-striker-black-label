@@ -91,7 +91,6 @@ class Player(Sprite):
 
         if self.hyperRemain:
             self.hyperRemain -= 1
-            lib.globals.phaseBonus = 0
             if not self.hyperRemain:
                 lib.sound.SFX.HYPER_END.play()
         if lib.globals.keys[pygame.K_x] and not lib.globals.keysLastFrame[pygame.K_x]:
@@ -102,6 +101,7 @@ class Player(Sprite):
             elif lib.globals.hyperNum and not self.deathWait:
                 lib.globals.hyperNum -= 1
                 lib.globals.hyperUsedCount += 1
+                lib.globals.phaseBonus = 0
                 self.hyperRemain = lib.constants.HYPER_TIME
                 self.invincibleRemain = lib.constants.HYPER_INVINCIBLE_TIME
                 for item in lib.globals.groupItem:

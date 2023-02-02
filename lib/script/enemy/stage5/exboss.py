@@ -124,7 +124,7 @@ def setup(ctx: lib.sprite.enemy.Enemy):
 #         round(((20 + (2, 3, 4)[lib.globals.difficultyType] * 6) * lib.globals.maxGetPoint) / (60 * 60 + 120) * .9),
 #     )
 #     ctx.hitpoint = 143333
-#     ctx.invincibleRemain = 120
+#     ctx.invincibleRemain = 120 + lib.globals.groupPlayer.sprite.hyperRemain
 #     ctx.blockHyper = True
 #     common.setCountdown(60 * 60 + 120, 60 * 60)
 #     yield 120
@@ -213,7 +213,7 @@ def phase0(ctx: lib.sprite.enemy.Enemy):
         round(((20 + (2, 3, 4)[lib.globals.difficultyType] * 6) * lib.globals.maxGetPoint) / (60 * 60 + 120) * .9),
     )
     ctx.hitpoint = 143333
-    ctx.invincibleRemain = 120
+    ctx.invincibleRemain = 120 + lib.globals.groupPlayer.sprite.hyperRemain
     ctx.blockHyper = True
     common.setCountdown(60 * 60 + 120, 60 * 60)
     common.move(ctx, 192, 108, 120, lib.utils.easeOutCubicInterpolation)
@@ -347,7 +347,7 @@ def phase1(ctx: lib.sprite.enemy.Enemy):
         round(((20 + (2, 3, 4)[lib.globals.difficultyType] * 6) * lib.globals.maxGetPoint) / (60 * 60 + 120) * .9),
     )
     ctx.hitpoint = 109999
-    ctx.invincibleRemain = 120
+    ctx.invincibleRemain = 120 + lib.globals.groupPlayer.sprite.hyperRemain
     ctx.blockHyper = True
     common.setCountdown(60 * 60 + 120, 60 * 60)
     common.move(ctx, 192, 128, 90, lib.utils.easeInOutCubicInterpolation)
@@ -457,7 +457,7 @@ def phase2(ctx: lib.sprite.enemy.Enemy):
         round(((20 + (2, 3, 4)[lib.globals.difficultyType] * 6) * lib.globals.maxGetPoint) / (60 * 60 + 120) * .9),
     )
     ctx.hitpoint = 143333
-    ctx.invincibleRemain = 120
+    ctx.invincibleRemain = 120 + lib.globals.groupPlayer.sprite.hyperRemain
     ctx.blockHyper = True
     common.setCountdown(60 * 60 + 120, 60 * 60)
     common.move(ctx, 192, 96, 90, lib.utils.easeInOutCubicInterpolation)
@@ -579,7 +579,7 @@ def phase3(ctx: lib.sprite.enemy.Enemy):
         round(((20 + (2, 3, 4)[lib.globals.difficultyType] * 6) * lib.globals.maxGetPoint) / (60 * 60 + 120) * .9),
     )
     ctx.hitpoint = 109999
-    ctx.invincibleRemain = 120
+    ctx.invincibleRemain = 120 + lib.globals.groupPlayer.sprite.hyperRemain
     ctx.blockHyper = True
     common.setCountdown(60 * 60 + 120, 60 * 60)
     yield 120
@@ -692,7 +692,7 @@ def phase4(ctx: lib.sprite.enemy.Enemy):
         round(((20 + (2, 3, 4)[lib.globals.difficultyType] * 6) * lib.globals.maxGetPoint) / (60 * 60 + 120) * .9),
     )
     ctx.hitpoint = 143333
-    ctx.invincibleRemain = 120
+    ctx.invincibleRemain = 120 + lib.globals.groupPlayer.sprite.hyperRemain
     ctx.blockHyper = True
     common.setCountdown(60 * 60 + 120, 60 * 60)
     yield 120
@@ -790,7 +790,7 @@ def phase5(ctx: lib.sprite.enemy.Enemy):
         round(((20 + (2, 3, 4)[lib.globals.difficultyType] * 6) * lib.globals.maxGetPoint) / (60 * 60 + 120) * .9),
     )
     ctx.hitpoint = 143333
-    ctx.invincibleRemain = 120
+    ctx.invincibleRemain = 120 + lib.globals.groupPlayer.sprite.hyperRemain
     ctx.blockHyper = True
     common.setCountdown(60 * 60 + 120, 60 * 60)
     yield 120
@@ -915,7 +915,7 @@ def phase6(ctx: lib.sprite.enemy.Enemy):
         round(((20 + (2, 3, 4)[lib.globals.difficultyType] * 6) * lib.globals.maxGetPoint) / (60 * 60 + 120) * .9),
     )
     ctx.hitpoint = 143333
-    ctx.invincibleRemain = 120
+    ctx.invincibleRemain = 120 + lib.globals.groupPlayer.sprite.hyperRemain
     ctx.blockHyper = True
     common.setCountdown(60 * 60 + 120, 60 * 60)
     common.move(ctx, 192, 192, 120, lib.utils.easeInOutCubicInterpolation)
@@ -1047,7 +1047,7 @@ def phase7(ctx: lib.sprite.enemy.Enemy):
         round(((20 + (2, 3, 4)[lib.globals.difficultyType] * 6) * lib.globals.maxGetPoint) / (75 * 60 + 120) * .9),
     )
     ctx.hitpoint = 87777
-    ctx.invincibleRemain = 120
+    ctx.invincibleRemain = 120 + lib.globals.groupPlayer.sprite.hyperRemain
     ctx.blockHyper = True
     common.setCountdown(75 * 60 + 120, 75 * 60)
     common.move(ctx, 192, 224, 120, lib.utils.easeInOutCubicInterpolation)
@@ -1246,7 +1246,7 @@ def phase9(ctx: lib.sprite.enemy.Enemy):
         round(((20 + (2, 3, 4)[lib.globals.difficultyType] * 6) * lib.globals.maxGetPoint) / (100 * 60 + 180) * .9),
     )
     ctx.hitpoint = 309999
-    ctx.invincibleRemain = 180
+    ctx.invincibleRemain = 180 + lib.globals.groupPlayer.sprite.hyperRemain
     ctx.blockHyper = True
     common.setCountdown(100 * 60 + 180, 100 * 60)
     common.move(ctx, 192, 72, 180, lib.utils.easeInOutCubicInterpolation)
