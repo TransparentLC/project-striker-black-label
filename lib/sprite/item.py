@@ -22,7 +22,8 @@ class ItemEffect(pygame.sprite.Sprite):
 
     def update(self) -> None:
         self.frameCounter += 1
-        self.rect.centery -= .025
+        if self.frameCounter % 2 == 0:
+            self.rect.centery -= 1
         self.image.set_alpha((60 - self.frameCounter) / 60 * 255)
         if self.frameCounter > 60:
             self.kill()

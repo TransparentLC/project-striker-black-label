@@ -23,6 +23,9 @@ ENEMY = {
     **getPackedSurface('assets/enemy-alt.webp', 'assets/enemy-alt.json'),
 }
 EXPLOSION = getPackedSurface('assets/explosion.webp', 'assets/explosion.json')
+for k in EXPLOSION:
+    if k.startswith('explode-plane-'):
+        EXPLOSION[k] = pygame.transform.scale2x(EXPLOSION[k])
 ITEM = getPackedSurface('assets/item.webp', 'assets/item.json')
 STGBACKGROUND = getPackedSurface('assets/stg-background.webp', 'assets/stg-background.json')
 STGUI = getPackedSurface('assets/stg-ui.webp', 'assets/stg-ui.json')
