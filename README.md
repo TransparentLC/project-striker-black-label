@@ -22,6 +22,11 @@
 
 以及，虽然公开了源代码，但是我实在是懒得写文档之类的东西，所以这部分的工作就咕咕咕了。
 
+通关演示/云玩家通道：
+
+* Type A 诱导攻击型 Extrame 难度：[AV1+Opus](https://pomf2.lain.la/f/k1mdkx3t.mp4) [H.264+AAC](https://pomf2.lain.la/f/5pn4b6d6.mp4) [Replay 文件](https://github.com/TransparentLC/project-striker-black-label/files/11064450/savedata.zip)
+* Type B 前方集中型 Extrame 难度：[AV1+Opus](https://pomf2.lain.la/f/nt89p9pw.mp4) [H.264+AAC](https://pomf2.lain.la/f/6w7lw3.mp4) [Replay 文件](https://github.com/TransparentLC/project-striker-black-label/files/11064459/savedata.zip)
+
 （更详细的介绍请参见游戏内的说明）
 
 ## 如何运行
@@ -53,8 +58,6 @@
 </details>
 
 配置数据和 replay 存储在项目（或可执行文件）所在的 `savedata` 目录下，删除即可完全初始化。
-
-点击[这里](https://github.com/TransparentLC/project-striker-black-label/files/10564567/savedata.zip)可以下载我自己打的混关展示 replay。
 
 ## 操作方法
 
