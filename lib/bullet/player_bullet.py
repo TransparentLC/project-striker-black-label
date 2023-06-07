@@ -86,6 +86,7 @@ class PlayerBullet(lib.bullet.Bullet):
                     return self.explode()
 
         if self.flags & PlayerBulletFlags.BULLET_CANCELLING:
+            self.largeExplode = True
             for b in lib.globals.groupEnemyBullet:
                 b: lib.bullet.enemy_bullet.EnemyBullet
                 if self.position.distance_squared_to(b.position) < self.size ** 2:

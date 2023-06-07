@@ -24,8 +24,8 @@
 
 通关演示/云玩家通道：
 
-* Type A 诱导攻击型 Extrame 难度：[AV1+Opus](https://pomf2.lain.la/f/k1mdkx3t.mp4) [H.264+AAC](https://pomf2.lain.la/f/5pn4b6d6.mp4) [Replay 文件](https://github.com/TransparentLC/project-striker-black-label/files/11064450/savedata.zip)
-* Type B 前方集中型 Extrame 难度：[AV1+Opus](https://pomf2.lain.la/f/nt89p9pw.mp4) [H.264+AAC](https://pomf2.lain.la/f/6w7lw3.mp4) [Replay 文件](https://github.com/TransparentLC/project-striker-black-label/files/11064459/savedata.zip)
+* Type A 诱导攻击型 Extreme 难度：[AV1+Opus](https://pomf2.lain.la/f/k1mdkx3t.mp4) [H.264+AAC](https://pomf2.lain.la/f/5pn4b6d6.mp4) [Replay 文件](https://github.com/TransparentLC/project-striker-black-label/files/11064450/savedata.zip)
+* Type B 前方集中型 Extreme 难度：[AV1+Opus](https://pomf2.lain.la/f/nt89p9pw.mp4) [H.264+AAC](https://pomf2.lain.la/f/6w7lw3.mp4) [Replay 文件](https://github.com/TransparentLC/project-striker-black-label/files/11064459/savedata.zip)
 
 （更详细的介绍请参见游戏内的说明）
 

@@ -20,10 +20,11 @@ class Explosion(lib.sprite.Sprite):
             self.kill()
 
 class ExplosionBullet(Explosion):
-    def __init__(self, position: pygame.Vector2) -> None:
+    def __init__(self, position: pygame.Vector2, speed: pygame.Vector2 = pygame.Vector2(0, 0), large: bool = False) -> None:
         super().__init__(position + pygame.Vector2(random.randint(-3, 3), random.randint(-3, 3)))
-        self.textures = tuple(lib.textures.EXPLOSION[f'explode-bullet-{i}'] for i in range(3))
-        self.interval = 3
+        self.textures = tuple(lib.textures.EXPLOSION[f'explode-bullet-{i}-2x' if large else f'explode-bullet-{i}'] for i in range(3))
+        self.interval = 5
+        self.speed = speed
 
 class ExplosionPlaneSmallA(Explosion):
     def __init__(self, position: pygame.Vector2) -> None:

@@ -26,6 +26,7 @@ EXPLOSION = getPackedSurface('assets/explosion.webp', 'assets/explosion.json')
 for k in EXPLOSION:
     if k.startswith('explode-plane-'):
         EXPLOSION[k] = pygame.transform.scale2x(EXPLOSION[k])
+EXPLOSION.update({f'{k}-2x': pygame.transform.scale2x(EXPLOSION[k]) for k in EXPLOSION if k.startswith('explode-bullet-')})
 ITEM = getPackedSurface('assets/item.webp', 'assets/item.json')
 STGBACKGROUND = getPackedSurface('assets/stg-background.webp', 'assets/stg-background.json')
 STGUI = getPackedSurface('assets/stg-ui.webp', 'assets/stg-ui.json')

@@ -16,6 +16,7 @@ class Bullet(lib.sprite.Sprite):
         super().__init__(*groups)
         self.speed = pygame.Vector2()
         self.boundary = bulletBoundary
+        self.largeExplode = False
 
     def update(self, *args, **kwargs) -> None:
         self.speed.from_polar((self.speedRadius, -self.angle - 90))
@@ -27,4 +28,8 @@ class Bullet(lib.sprite.Sprite):
 
     def explode(self) -> None:
         self.kill()
-        lib.sprite.explosion.ExplosionBullet(self.position)
+        lib.sprite.explosion.ExplosionBullet(
+            self.position,
+            self.speed * (.1 if self.speed.length() > 10 else 1 / self.speed.length()),
+            self.largeExplode,
+        )
