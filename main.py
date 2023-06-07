@@ -35,6 +35,8 @@ if __name__ == '__main__':
             pygame.K_LEFT,
             pygame.K_RIGHT,
             pygame.K_LSHIFT,
+            pygame.K_LCTRL,
+            pygame.K_LALT,
             pygame.K_z,
             pygame.K_x,
             pygame.K_c,
@@ -87,7 +89,13 @@ if __name__ == '__main__':
             )
             pygame.display.flip()
 
-        lib.globals.clock.tick(60)
+        lib.globals.clock.tick(
+            240 if (
+                lib.globals.keys[pygame.K_LCTRL] and (
+                    not lib.globals.keys[pygame.K_LALT] or not lib.globals.groupBoss.sprite
+                )
+            ) else 60
+        )
 
     # Write config and savedata before quit
     with open(lib.constants.PATH_CONFIG, 'w', encoding='utf-8') as f:

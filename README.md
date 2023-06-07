@@ -66,6 +66,7 @@
 * <kbd>Z</kbd> 射击（按住不放就可以连射）、确认
 * <kbd>X</kbd> 开启火力强化模式（参见游戏内的说明）、取消
 * <kbd>P</kbd> 暂停游戏，再按一下就会恢复
+* <kbd>LCtrl</kbd> 按住不放可以加速游戏，同时按住 <kbd>LAlt</kbd> 时，在 BOSS 战期间不会加速
 * <kbd>Esc</kbd> 在游戏过程中返回标题画面
 
 （想要改键或使用手柄？试试 [PowerToys](https://github.com/microsoft/PowerToys)、[JoyToKey](https://joytokey.net/) 之类的有按键映射功能的工具吧）
