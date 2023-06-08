@@ -30,6 +30,6 @@ class Bullet(lib.sprite.Sprite):
         self.kill()
         lib.sprite.explosion.ExplosionBullet(
             self.position,
-            self.speed * (.1 if self.speed.length() > 10 else 1 / self.speed.length()),
+            self.speed * (.1 if self.speed.length() > 10 else 1 / self.speed.length()) if self.speed.length() else pygame.Vector2(0, 0),
             self.largeExplode,
         )

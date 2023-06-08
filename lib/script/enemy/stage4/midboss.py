@@ -54,9 +54,11 @@ def setup(ctx: lib.sprite.enemy.Enemy):
     common.setBoss(ctx)
     common.setBossRemain(1)
     common.setBossHPRange(ctx, 10000, 106532)
-    ctx.hitpoint = 106532
     common.setCountdown(40 * 60 + 150, 40 * 60)
-    yield 180
+    for i in range(60):
+        ctx.hitpoint = round(lib.utils.linearInterpolation((i + 1) / 60, max(lib.globals.bossHitpointRangeMin, 1), lib.globals.bossHitpointRangeMax))
+        yield 1
+    yield 120
 
 def general0(ctx: lib.sprite.enemy.Enemy):
     k = 1
@@ -102,11 +104,13 @@ def phase0(ctx: lib.sprite.enemy.Enemy):
     )
     common.setBossRemain(0)
     common.setBossHPRange(ctx, 10000, 120413)
-    ctx.hitpoint = 120413
     ctx.invincibleRemain = 90 + lib.globals.groupPlayer.sprite.hyperRemain
     common.setCountdown(60 * 60 + 90, 60 * 60)
     common.moveRandom(ctx, 192, 96, 120, 32, 90, lib.utils.easeOutCubicInterpolation)
-    yield 90
+    for i in range(60):
+        ctx.hitpoint = round(lib.utils.linearInterpolation((i + 1) / 60, max(lib.globals.bossHitpointRangeMin, 1), lib.globals.bossHitpointRangeMax))
+        yield 1
+    yield 30
     while True:
         d = (
             pygame.Vector2(0, 0),

@@ -76,9 +76,11 @@ def setup(ctx: lib.sprite.enemy.Enemy):
     common.setBossRemain(3)
     common.setBossHPRange(ctx, 10000, 60468)
     common.setPhaseName(0)
-    ctx.hitpoint = 60468
     common.setCountdown(25 * 60 + 120, 25 * 60)
-    yield 120
+    for i in range(60):
+        ctx.hitpoint = round(lib.utils.linearInterpolation((i + 1) / 60, max(lib.globals.bossHitpointRangeMin, 1), lib.globals.bossHitpointRangeMax))
+        yield 1
+    yield 60
 
 def general0(ctx: lib.sprite.enemy.Enemy):
     x = -1
@@ -131,11 +133,13 @@ def phase0(ctx: lib.sprite.enemy.Enemy):
         (20 + (2, 3, 4)[lib.globals.difficultyType] * 1) * lib.globals.maxGetPoint,
         round(((20 + (2, 3, 4)[lib.globals.difficultyType] * 1) * lib.globals.maxGetPoint) / (40 * 60 + 120) * .9),
     )
-    ctx.hitpoint = 117361
     ctx.invincibleRemain = 120 + lib.globals.groupPlayer.sprite.hyperRemain
     common.setCountdown(40 * 60 + 120, 40 * 60)
     common.move(ctx, 192, 128, 120, lib.utils.easeInOutCubicInterpolation)
-    yield 120
+    for i in range(60):
+        ctx.hitpoint = round(lib.utils.linearInterpolation((i + 1) / 60, max(lib.globals.bossHitpointRangeMin, 1), lib.globals.bossHitpointRangeMax))
+        yield 1
+    yield 60
     a = False
     while True:
         b = (120 if a else 240) + common.randomFloat(-45, 45)
@@ -172,11 +176,13 @@ def general1(ctx: lib.sprite.enemy.Enemy):
     common.setBossRemain(1)
     common.setBossHPRange(ctx, 10000, 67254)
     common.setPhaseName(0)
-    ctx.hitpoint = 67254
     ctx.invincibleRemain = 210
     common.setCountdown(25 * 60 + 210, 25 * 60)
     common.move(ctx, 192, 96, 150, lib.utils.easeOutCubicInterpolation)
-    yield 180
+    for i in range(60):
+        ctx.hitpoint = round(lib.utils.linearInterpolation((i + 1) / 60, max(lib.globals.bossHitpointRangeMin, 1), lib.globals.bossHitpointRangeMax))
+        yield 1
+    yield 120
     x = -1
     while True:
         x = -x
@@ -224,10 +230,11 @@ def phase1(ctx: lib.sprite.enemy.Enemy):
         (20 + (2, 3, 4)[lib.globals.difficultyType] * 1) * lib.globals.maxGetPoint,
         round(((20 + (2, 3, 4)[lib.globals.difficultyType] * 1) * lib.globals.maxGetPoint) / (40 * 60 + 120) * .9),
     )
-    ctx.hitpoint = 128274
     ctx.invincibleRemain = 90 + lib.globals.groupPlayer.sprite.hyperRemain
     common.setCountdown(40 * 60 + 120, 40 * 60)
-    yield 60
+    for i in range(60):
+        ctx.hitpoint = round(lib.utils.linearInterpolation((i + 1) / 60, max(lib.globals.bossHitpointRangeMin, 1), lib.globals.bossHitpointRangeMax))
+        yield 1
     while True:
         common.moveRandom(ctx, 192, 96, 100, 96, 60, lib.utils.easeOutCubicInterpolation)
         yield 60

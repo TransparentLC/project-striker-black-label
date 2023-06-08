@@ -57,9 +57,11 @@ def setup(ctx: lib.sprite.enemy.Enemy):
     common.setBoss(ctx)
     common.setBossRemain(1)
     common.setBossHPRange(ctx, 10000, 66934)
-    ctx.hitpoint = 66934
     common.setCountdown(25 * 60 + 120, 25 * 60)
-    yield 120
+    for i in range(60):
+        ctx.hitpoint = round(lib.utils.linearInterpolation((i + 1) / 60, max(lib.globals.bossHitpointRangeMin, 1), lib.globals.bossHitpointRangeMax))
+        yield 1
+    yield 60
 
 def general0(ctx: lib.sprite.enemy.Enemy):
     while True:
@@ -114,11 +116,13 @@ def general1(ctx: lib.sprite.enemy.Enemy):
     common.moveClear(ctx)
     common.setBossRemain(0)
     common.setBossHPRange(ctx, 10000, 69361)
-    ctx.hitpoint = 69361
     ctx.invincibleRemain = 210
     common.setCountdown(25 * 60 + 210, 25 * 60)
     common.move(ctx, 192, 96, 150, lib.utils.easeOutCubicInterpolation)
-    yield 180
+    for i in range(60):
+        ctx.hitpoint = round(lib.utils.linearInterpolation((i + 1) / 60, max(lib.globals.bossHitpointRangeMin, 1), lib.globals.bossHitpointRangeMax))
+        yield 1
+    yield 120
     x = -8
     while True:
         a = common.calcDirectionAiming(ctx, x, 18)

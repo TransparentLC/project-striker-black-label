@@ -57,11 +57,13 @@ def setup(ctx: lib.sprite.enemy.Enemy):
     common.setBoss(ctx)
     common.setBossRemain(1)
     common.setBossHPRange(ctx, 10000, 67853)
-    ctx.hitpoint = 67853
     common.setCountdown(30 * 60 + 90, 30 * 60)
+    for i in range(60):
+        if i == 30:
+            common.clearBullet(ctx)
+        ctx.hitpoint = round(lib.utils.linearInterpolation((i + 1) / 60, max(lib.globals.bossHitpointRangeMin, 1), lib.globals.bossHitpointRangeMax))
+        yield 1
     yield 30
-    common.clearBullet(ctx)
-    yield 60
 
 def general0(ctx: lib.sprite.enemy.Enemy):
     while True:
@@ -102,11 +104,13 @@ def general1(ctx: lib.sprite.enemy.Enemy):
     common.moveClear(ctx)
     common.setBossRemain(0)
     common.setBossHPRange(ctx, 10000, 61470)
-    ctx.hitpoint = 61470
     ctx.invincibleRemain = 210
     common.setCountdown(30 * 60 + 210, 30 * 60)
     common.move(ctx, 192, 128, 150, lib.utils.easeOutCubicInterpolation)
-    yield 180
+    for i in range(60):
+        ctx.hitpoint = round(lib.utils.linearInterpolation((i + 1) / 60, max(lib.globals.bossHitpointRangeMin, 1), lib.globals.bossHitpointRangeMax))
+        yield 1
+    yield 120
     a = 0
     while True:
         SFX.ENEMY_SHOOT_C.play()
