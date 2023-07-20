@@ -17,9 +17,9 @@ import lib.scene.select_difficulty
 
 VERSION_TEXT = tuple(lib.font.FONT_SMALL.render(x, pygame.Color(255, 255, 255)) for x in (
     (
-        f'Built at {lib.constants.BUILD_INFO[1]} (Commit {lib.constants.BUILD_INFO[0][:7]}) with Python {platform.python_version()} Pygame {pygame.version.ver}'
+        f'Built at {lib.constants.BUILD_INFO[1]} (Commit {lib.constants.BUILD_INFO[0][:7]}) with Python {platform.python_version()} Pygame Community Edition {pygame.version.ver}'
         if lib.constants.BUILD_INFO else
-        f'Built with Python {platform.python_version()} Pygame {pygame.version.ver}'
+        f'Built with Python {platform.python_version()} Pygame Community Edition {pygame.version.ver}'
     ),
     '© 2023 TransparentLC https://akarin.dev',
 ))

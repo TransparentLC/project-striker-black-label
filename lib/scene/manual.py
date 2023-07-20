@@ -26,7 +26,7 @@ Build time: {lib.constants.BUILD_INFO[1] if lib.constants.BUILD_INFO else None}
 
 Built with:
 　Python {platform.python_version()}
-　Pygame {pygame.version.ver}
+　Pygame Community Edition {pygame.version.ver}
 ''').split('----------------'))
 
 currentPage = 0

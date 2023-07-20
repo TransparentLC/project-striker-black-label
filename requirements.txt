@@ -1,2 +1,2 @@
 jsonschema == 4.*
-pygame == 2.*
+pygame-ce == 2.*
