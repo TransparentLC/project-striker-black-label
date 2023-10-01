@@ -34,28 +34,29 @@ def update():
     global currentPage
     global currentItem
     global currentHint
-    if lib.globals.keys[pygame.K_DOWN] and not lib.globals.keysLastFrame[pygame.K_DOWN]:
-        currentItem = currentItem + 1
-        if currentItem > min(len(currentPageReplayData) - 1, 9):
-            currentPage += 1
-            turnPage()
-            currentItem = 0
-        currentHint = None if currentPageReplayData[currentItem][1][1] == lib.replay.REPLAY_VERSION else incorrectVersionSurface
-        lib.sound.SFX.PAGE.play()
-    if lib.globals.keys[pygame.K_UP] and not lib.globals.keysLastFrame[pygame.K_UP]:
-        currentItem = currentItem - 1
-        if currentItem < 0:
-            currentPage -= 1
-            turnPage()
-            currentItem = len(currentPageReplayData) - 1
-        currentHint = None if currentPageReplayData[currentItem][1][1] == lib.replay.REPLAY_VERSION else incorrectVersionSurface
-        lib.sound.SFX.PAGE.play()
-    if lib.globals.keys[pygame.K_z] and not lib.globals.keysLastFrame[pygame.K_z]:
-        if lib.replay.loadReplay(currentPageReplayData[currentItem][0]):
-            lib.newgame.init()
-        else:
-            currentHint = incorrectChecksumSurface
-        lib.sound.SFX.PAGE.play()
+    if len(currentPageReplayData):
+        if lib.globals.keys[pygame.K_DOWN] and not lib.globals.keysLastFrame[pygame.K_DOWN]:
+            currentItem = currentItem + 1
+            if currentItem > min(len(currentPageReplayData) - 1, 9):
+                currentPage += 1
+                turnPage()
+                currentItem = 0
+            currentHint = None if currentPageReplayData[currentItem][1][1] == lib.replay.REPLAY_VERSION else incorrectVersionSurface
+            lib.sound.SFX.PAGE.play()
+        if lib.globals.keys[pygame.K_UP] and not lib.globals.keysLastFrame[pygame.K_UP]:
+            currentItem = currentItem - 1
+            if currentItem < 0:
+                currentPage -= 1
+                turnPage()
+                currentItem = len(currentPageReplayData) - 1
+            currentHint = None if currentPageReplayData[currentItem][1][1] == lib.replay.REPLAY_VERSION else incorrectVersionSurface
+            lib.sound.SFX.PAGE.play()
+        if lib.globals.keys[pygame.K_z] and not lib.globals.keysLastFrame[pygame.K_z]:
+            if lib.replay.loadReplay(currentPageReplayData[currentItem][0]):
+                lib.newgame.init()
+            else:
+                currentHint = incorrectChecksumSurface
+            lib.sound.SFX.PAGE.play()
     if lib.globals.keys[pygame.K_x] and not lib.globals.keysLastFrame[pygame.K_x]:
         lib.globals.nextScene = lib.scene.title
         lib.sound.SFX.PAGE.play()
