@@ -23,7 +23,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Setup Python
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
           python-version: 3.x
           cache: pip
@@ -31,7 +31,7 @@ jobs:
       - name: Install pip dependencies
         run: pip install -U -r requirements-build.txt
       - name: Cache font
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         id: cache-font
         with:
           path: .font
@@ -59,9 +59,9 @@ jobs:
             choco install mingw --no-progress
           elif [ "$RUNNER_OS" == "Linux" ]; then
             sudo add-apt-repository ppa:ubuntu-toolchain-r/ppa
-            sudo apt install gcc-12 g++-12
-            echo "CC=gcc-12" >> $GITHUB_ENV
-            echo "CXX=g++-12" >> $GITHUB_ENV
+            sudo apt install gcc-13 g++-13
+            echo "CC=gcc-13" >> $GITHUB_ENV
+            echo "CXX=g++-13" >> $GITHUB_ENV
           fi
       - name: Set vars
         id: vars
@@ -106,7 +106,7 @@ jobs:
       - name: Get SHA-256 checksum of built executable
         run: openssl sha256 dist/${{ steps.vars.outputs.archiveName }}
       - name: Upload result
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: striker-bl-${{ runner.os }}
           path: dist/${{ steps.vars.outputs.archiveName }}
