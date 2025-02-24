@@ -21,11 +21,11 @@ jobs:
           - windows-latest
           - ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Setup Python
         uses: actions/setup-python@v4
         with:
-          python-version: '3.11'
+          python-version: 3.x
           cache: pip
           cache-dependency-path: requirements-build.txt
       - name: Install pip dependencies
