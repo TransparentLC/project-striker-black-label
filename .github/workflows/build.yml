@@ -59,9 +59,9 @@ jobs:
             choco install mingw --no-progress
           elif [ "$RUNNER_OS" == "Linux" ]; then
             sudo add-apt-repository ppa:ubuntu-toolchain-r/ppa
-            sudo apt install gcc-13 g++-13
-            echo "CC=gcc-13" >> $GITHUB_ENV
-            echo "CXX=g++-13" >> $GITHUB_ENV
+            sudo apt install gcc-14 g++-14
+            echo "CC=gcc-14" >> $GITHUB_ENV
+            echo "CXX=g++-14" >> $GITHUB_ENV
           fi
       - name: Set vars
         id: vars
@@ -90,8 +90,8 @@ jobs:
           cd dist
           cp ../README.md striker-bl/README.md
           if [ "$RUNNER_OS" == "Windows" ]; then
-            rm striker-bl/api-ms-win-*.dll
-            rm striker-bl/ucrtbase.dll
+            rm -f striker-bl/api-ms-win-*.dll
+            rm -f striker-bl/ucrtbase.dll
             7z a \
               ${{ steps.vars.outputs.archiveName }} \
               striker-bl \
