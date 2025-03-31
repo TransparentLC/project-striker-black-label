@@ -90,8 +90,10 @@ jobs:
           cd dist
           cp ../README.md striker-bl/README.md
           if [ "$RUNNER_OS" == "Windows" ]; then
-            rm -f striker-bl/api-ms-win-*.dll
-            rm -f striker-bl/ucrtbase.dll
+            rm striker-bl/_internal/api-ms-win-*.dll
+            rm striker-bl/_internal/ucrtbase.dll
+            rm striker-bl/_internal/VCRUNTIME140.dll
+            rm striker-bl/_internal/VCRUNTIME140_1.dll
             7z a \
               ${{ steps.vars.outputs.archiveName }} \
               striker-bl \

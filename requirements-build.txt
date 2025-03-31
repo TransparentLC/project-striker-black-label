@@ -1,4 +1,7 @@
 fonttools == 4.*
 jsonschema == 4.*
-pygame-ce == 2.*
+# `pygame.mixer.Sound()` throws "Unrecognized audio format" for some Vorbis file (with emoji in metadata?) · Issue #3350 · pygame-community/pygame-ce
+# https://github.com/pygame-community/pygame-ce/issues/3350
+# pygame-ce == 2.*
+pygame-ce == 2.4.0
 pyinstaller == 6.*
